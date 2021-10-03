@@ -22,6 +22,8 @@ export default class Queue {
 
   enqueue(value) {
     // your code is here
+    this.list.push(value)
+    this.length=this.list.length
   }
 
   /**
@@ -31,6 +33,12 @@ export default class Queue {
 
   dequeue() {
     // your code is here
+    const returnValue= this.list[0]
+    this.list=[...this.list.filter((value, index, array) => {
+      return index>0
+    })]
+    this.length=this.list.length
+    return returnValue
   }
 
   /**
@@ -40,5 +48,6 @@ export default class Queue {
 
   peek() {
     // your code is here
+    return this.list[0]
   }
 }

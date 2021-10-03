@@ -20,6 +20,12 @@ export default class HashTable {
    */
 
   hashKey(key) {
+    let hash=0
+    for(let i =0; i<key.length; i++){
+      hash+=key[i].charCodeAt(0)
+    }
+    return hash
+
     // your code is here
   }
 
@@ -29,6 +35,14 @@ export default class HashTable {
 
   get(key) {
     // your code here
+    const hash=this.hashKey(key)
+    let returnValue=undefined
+    this.memory.forEach((value, index, array) => {
+      if(value.hash === hash){
+        returnValue = value.value
+      }
+    })
+    return returnValue
   }
 
   /**
@@ -36,7 +50,7 @@ export default class HashTable {
    */
 
   set(key, value) {
-    // your code is here
+    this.memory.push({hash:this.hashKey(key),value:value })
   }
 
   /**
@@ -45,6 +59,10 @@ export default class HashTable {
    */
 
   remove(key) {
+    const hash=this.hashKey(key)
+    this.memory=this.memory.filter((value, index, array) => {
+     return  value.hash !== hash
+    })
     // your code is here
   }
 }
