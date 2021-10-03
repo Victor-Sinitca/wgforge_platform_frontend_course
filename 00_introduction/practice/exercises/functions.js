@@ -5,8 +5,14 @@ and apply passed function to each elemnt of array
 Example:
 [1, 2, 3], x => x + 1  yields [2, 3 ,4]
 */
-export function map(array, func) {
+export function map(array = [], func = () => {
+}) {
   // YOUR CODE HERE
+  const newArray = [];
+  array.forEach((value, index, array1) => {
+    newArray.push(func(value));
+  });
+  return newArray;
 }
 
 /*
@@ -18,8 +24,16 @@ returns new array with elements matched to filter
 [1, 2, 3, 4, 5, 6], x => x % 2 == 0 yields [2, 4, 6]
 
 */
-export function filter(array, fn) {
+export function filter(array = [], fn) {
   // YOUR CODE HERE
+  /* const newArray= array.filter((value, index, array1) => {
+     fn(value)
+   })*/
+  const newArray = [];
+  array.forEach((value, index, array1) => {
+    if (fn(value)) newArray.push(value);
+  });
+  return newArray;
 }
 
 /*
@@ -37,6 +51,21 @@ gen() -> 5
 */
 export function fibGenerator() {
   // YOUR CODE HERE
+  let previousValue = 1;
+  let value = -1;
+  return () => {
+    const returnValue = value + previousValue;
+    if (value === 0) {
+      previousValue = 0;
+    }
+    if (value < 1) {
+      value++;
+    } else {
+      previousValue = value;
+      value = returnValue;
+    }
+    return returnValue;
+  };
 }
 
 /*
@@ -54,4 +83,17 @@ Note: function has a length property which shows how many arguments it receives
 */
 export function partial(fn, ...args) {
   // YOUR CODE HERE
+  const receivedFn = fn;
+  let receivedArgs = args;
+
+  return (...value) => {
+    if (receivedFn.length === receivedArgs.length) {
+      return receivedFn(...receivedArgs);
+    } else {
+      receivedArgs = receivedArgs.concat(value);
+      if (receivedFn.length === receivedArgs.length) {
+        return receivedFn(...receivedArgs);
+      }
+    }
+  };
 }

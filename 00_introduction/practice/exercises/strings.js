@@ -3,6 +3,11 @@ write a function's body that concat all passed strings to one and returns it
 */
 export function concat(...strings) {
   // YOUR CODE HERE
+  let returnString=""
+  strings.forEach((value, index, array) => {
+    returnString=returnString.concat(value)
+  })
+  return returnString
 }
 
 /*
@@ -16,6 +21,13 @@ Example:
 */
 export function oddElements(string) {
   // YOUR CODE HERE
+  let returnString=""
+  for(let i=0; i<string.length;i++){
+    if((i+1)%2===1){
+      returnString=returnString.concat(string[i])
+    }
+  }
+  return returnString
 }
 
 /*
@@ -30,4 +42,7 @@ Note: String has .split(separator) method where seprator is another string
 */
 export function wordsCount(string) {
   // YOUR CODE HERE
+  if(string){
+    return string?.split(" ").length
+  }else return 0
 }

@@ -12,6 +12,18 @@ Example:
 */
 export function collectByFirstLetter(...words) {
   // YOUR CODE HERE
+  let newObject={}
+  words.forEach((value, index, array) => {
+    const word=value[0]
+    if (!newObject.hasOwnProperty(word)){
+      newObject[word]=[]
+    }
+    newObject[word].push(value)
+  })
+  for (let key in newObject) {
+    newObject[key].sort()
+  }
+  return newObject
 }
 
 /*
@@ -24,6 +36,13 @@ Example:
 */
 export function only(obj, ...keys) {
   // YOUR CODE HERE
+  let returnObject={}
+  keys.forEach((value, index, array) => {
+    if(obj.hasOwnProperty(value)){
+      returnObject[value]=  obj[value]
+    }
+  })
+  return returnObject
 }
 
 /*
@@ -45,6 +64,21 @@ Example:
 */
 export function wordsCount(text) {
   // YOUR CODE HERE
+  let newObject={}
+  text.replace(/[.,\/#?!$%\^&\*;:{}=\-_`~()]/g,"")
+    .replace(/\s{2,}/g," ")
+    .toLowerCase().split(" ")
+    .forEach((value, index, array) => {
+      if(value){
+        if(newObject.hasOwnProperty(value)){
+          newObject[value]++
+        }else{
+          newObject[value]=1
+        }
+      }
+  })
+  return newObject
+
 }
 
 /*
@@ -63,4 +97,11 @@ user.isWeakPassword() === false
 
 export function createUser(login, password) {
   // YOUR CODE HERE
+  return {
+    login:login,
+    password:password,
+    isWeakPassword(){
+     return  this.password === this.password.toLowerCase()
+    },
+  }
 }
