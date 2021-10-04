@@ -81,6 +81,55 @@
  * 3. Реализовать функциональность создания INSERT и DELETE запросов. Написать для них тесты.
  */
 
-export default function query() {
+export default function query(nameTable = '') {
   // ¯\_(ツ)_/¯
+  class BuilderSQL {
+    constructor(nameTable) {
+      this.nameTable = nameTable;
+      this.databaseQuery=""
+    }
+
+    /*
+    select(arg1, arg2 ... argN) - может принимать список полей для выборки.
+    * Аргументы должны иметь тип String. Если ни одного аргумента не передано должны быть получены все поля таблицы
+    * Например:
+      * q.select().from('users')
+  * > SELECT * FROM users
+    * q.select('id', 'name').from('users')
+  * > SELECT id, name FROM users
+  */
+    select(...arg) {
+      this.databaseQuery="SELECT"
+      if(arg.length>0){
+        arg.forEach((value,index) => {
+          if(typeof value==='string'){
+            this.databaseQuery+=' '+value
+            if(index<arg.length-1){
+              this.databaseQuery+=","
+            }
+          }
+        })
+      } else{
+        this.databaseQuery+=' *'
+      }
+      return this
+    }
+//SELECT * FROM users
+    from(tableName) {
+      if (!this.nameTable) {
+        this.databaseQuery+=" FROM "+tableName
+        return this.databaseQuery
+      }
+    }
+
+
+
+
+
+
+
+
+  }
+
+
 }
