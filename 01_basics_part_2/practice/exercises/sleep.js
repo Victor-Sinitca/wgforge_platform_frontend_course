@@ -5,6 +5,17 @@
  * выполнение и вернуть undefined.
  */
 
-export default function sleep() {
-  // your code here
+export default  function sleep(arg) {
+    // your code here
+  if(Number.isInteger(+arg)){
+    const startDate = Date.now()+(+arg*1000)
+    let date=Date.now()
+    while(startDate > date){
+      date=Date.now()
+    }
+  }else {
+    return undefined
+  }
+
+
 }

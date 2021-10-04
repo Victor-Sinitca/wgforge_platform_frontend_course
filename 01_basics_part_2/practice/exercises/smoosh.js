@@ -15,12 +15,35 @@
  * с сообщением 'argument should be an array'.
  */
 
-function smoosh() {
-  // your code here
+function readArray(array,newArray){
+  array.forEach((value, index, array1) => {
+    if(Array.isArray(value)){
+      readArray(value,newArray)
+    }else {
+      newArray.push(value)
+    }
+  })
 }
 
-function squeeze() {
+function smoosh(array=[]) {
   // your code here
+  if(Array.isArray(array)){
+    const newArray=[]
+    readArray(array,newArray)
+    return newArray
+  }else throw new Error("argument should be an array")
+}
+
+function squeeze(array=[]) {
+  // your code here
+  if(Array.isArray(array) ){
+    const newArray=[]
+    readArray(array,newArray)
+    newArray.forEach((value, index, array1) => {
+      array[index]=value
+    })
+    return array
+  }else throw new Error("argument should be an array")
 }
 
 export { smoosh, squeeze };
