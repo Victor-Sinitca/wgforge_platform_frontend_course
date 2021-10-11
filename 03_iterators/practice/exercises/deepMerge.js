@@ -28,4 +28,29 @@
  */
 export default function deepMerge(destinationObject, sourceObject) {
   // ¯\_(ツ)_/¯
+  const returnObject = destinationObject;
+  if(Array.isArray(sourceObject)){
+
+
+
+
+  }else if(typeof sourceObject === 'object' && sourceObject !== null){
+
+  }else {
+
+  }
+
+
+
+  for (let key of sourceObject) {
+    if (returnObject.hasOwnProperty(key)) {
+
+    } else {
+
+    }
+
+
+  }
+
+
 }
