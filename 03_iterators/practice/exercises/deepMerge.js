@@ -26,31 +26,60 @@
  * //       count: 1
  * //    }
  */
+
+function mergeArray(destination, source) {
+  const destinationObject = destination;
+  const sourceObject = source;
+  if (Array.isArray(destinationObject)) {
+    // если объединяем массив с массивом
+    sourceObject.forEach((value, index, array) => {
+      destinationObject[index] = merge(destinationObject[index], sourceObject[index]);
+    });
+    return destinationObject
+  } else {
+    // в других случаях замещаем
+    return sourceObject;
+  }
+}
+function mergeObject(destination, source) {
+  const destinationObject = destination;
+  const sourceObject = source;
+  if (!Array.isArray(destinationObject)
+    && typeof destinationObject === 'object'
+    && destinationObject !== null) {
+    // если объединяем объект с объектом
+    for (let key in sourceObject) {
+      if (sourceObject && sourceObject.hasOwnProperty(key)) {
+        if (destinationObject.hasOwnProperty(key)) {
+          //
+          destinationObject[key] = merge(destinationObject[key], sourceObject[key]);
+        } else {
+          //
+          destinationObject[key] = sourceObject[key];
+        }
+      }
+    }
+    return destinationObject
+  } else {
+    return sourceObject;
+  }
+}
+function merge(destination, source) {
+  const destinationObject = destination;
+  const sourceObject = source;
+  if (Array.isArray(sourceObject)) {
+    // объединяем с массивом
+    return mergeArray(destinationObject, sourceObject);
+  } else if (typeof sourceObject === 'object' && sourceObject !== null) {
+    // объединяем с объектом
+    return mergeObject(destinationObject, sourceObject);
+  } else {
+    // объединяем с простым значением
+    return sourceObject;
+  }
+}
 export default function deepMerge(destinationObject, sourceObject) {
   // ¯\_(ツ)_/¯
-  const returnObject = destinationObject;
-  if(Array.isArray(sourceObject)){
-
-
-
-
-  }else if(typeof sourceObject === 'object' && sourceObject !== null){
-
-  }else {
-
-  }
-
-
-
-  for (let key of sourceObject) {
-    if (returnObject.hasOwnProperty(key)) {
-
-    } else {
-
-    }
-
-
-  }
-
-
+  return merge(destinationObject, sourceObject);
 }
+
